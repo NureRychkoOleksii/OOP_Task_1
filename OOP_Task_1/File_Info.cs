@@ -49,5 +49,10 @@ namespace OOP_Task_1
             string final_path = $@"{path}\{File_Name}";
             File.Move($@"{_Path}\{File_Name}",final_path);
         }
+
+        public void Create_Folder(string folder_name)
+        {
+            Directory.CreateDirectory(@$"{_Path}\{folder_name}");
+        }
     }
 }

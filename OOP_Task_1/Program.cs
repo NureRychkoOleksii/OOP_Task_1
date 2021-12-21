@@ -6,10 +6,12 @@ namespace OOP_Task_1
     {
         static void Main(string[] args)
         {
-            File_Info fileInfo = new File_Info(@"C:\Users\moonler\Desktop\мусор");
-            fileInfo.File_Output();
-            fileInfo.Enter_File_Name("1, Ричко.doc");
-            fileInfo.Folder_Move(@"C:\Users\moonler\Desktop");
+            File_Info file = new File_Info(@"C:\Users\moonler\Desktop\мусор");
+            file.File_Output();
+            file.Enter_File_Name("1, Ричко.doc");
+            //file.Folder_Move(@"C:\Users\moonler\Desktop");
+            file.Change_Folder(@"C:\Users\moonler\Desktop\мусор");
+            file.Create_Folder("ВАЛЕРЧИК_ТЕСТ");
         }
     }
 }
