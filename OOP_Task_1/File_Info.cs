@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Channels;
+
 
 namespace OOP_Task_1
 {
@@ -10,6 +10,8 @@ namespace OOP_Task_1
         public string _Path { get; set; }
 
         public string File_Name { get; set; }
+
+        private DirectoryInfo directoryInfo;
 
         public void Enter_File_Name(string name)
         {
@@ -53,6 +55,20 @@ namespace OOP_Task_1
         public void Create_Folder(string folder_name)
         {
             Directory.CreateDirectory(@$"{_Path}\{folder_name}");
+        }
+
+        public void Delete_Folder(string folder_name)
+        {
+            
+            // void DeleteDirectory(string directoryName, bool checkDirectiryExist)
+            // {
+            //     if (Directory.Exists(directoryName))
+            //         Directory.Delete(directoryName, true);
+            //     else if (checkDirectiryExist)
+            //         throw new SystemException("Directory you want to delete is not exist");
+            // }
+            
+            Directory.Delete($@"{_Path}\{folder_name}",true);
         }
     }
 }
