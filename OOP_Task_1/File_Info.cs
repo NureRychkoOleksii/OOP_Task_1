@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-using System.Text;
-
 
 namespace OOP_Task_1
 {
@@ -32,35 +31,74 @@ namespace OOP_Task_1
         
         public void File_Output()
         {
-            Directory
-                .GetFiles(_Path, "*", SearchOption.AllDirectories)
-                .ToList()
-                .ForEach(f => Console.WriteLine(Path.GetFileName(f)));
+            string[] arr = Directory.GetFiles(_Path, "*", SearchOption.AllDirectories);
+            foreach (var i in arr)
+            {
+                Console.WriteLine(Path.GetFileName(i));
+            }
+            //.ToList();
+            //.ForEach(f => Console.WriteLine(Path.GetFileName(f)));
         }
 
         public void File_Output_By_Name()
         {
-            Directory
+            string[] lst = Directory
                 .GetFiles(_Path, "*", SearchOption.AllDirectories)
-                .ToList()
-                .OrderBy(f=>f)
-                .ToList()
-                .ForEach(f => Console.WriteLine(Path.GetFileName(f)));
+                .OrderBy(f => f)
+                .ToArray();
+           
+
+            // string[] lst = Directory.GetFiles(_Path, "*", SearchOption.AllDirectories);
+            // Array.Sort(lst);
+            foreach (var i in lst)
+            {
+                Console.WriteLine(Path.GetFileName(i));
+            }
         }
 
         public void File_Output_By_Size()
         {
-            List<string> lst= Directory.GetFiles(_Path).ToList();
-            lst
+            string[] lst = Directory
+                .GetFiles(_Path)
                 .OrderBy(f => new FileInfo(f).Length)
-                .ToList()
-                .ForEach(f=>Console.WriteLine(Path.GetFileName(f)));
+                .ToArray();
+            foreach (var i in lst)
+            {
+                Console.WriteLine(Path.GetFileName(i));
+            }
+          
+            // for (int i = 0; i < lst.Length; i++)
+            // {
+            //     file_info_length[i] = new FileInfo(lst[i]).Length;
+            // }
+            //
+            // Array.Sort(file_info_length);
+            //
+            // string[] lst_fin = new string[lst.Length];
+            //
+            // for (int i = 0; i < lst.Length; i++)
+            // {
+            //     for (int j = 0; j < lst.Length; j++)
+            //     {
+            //         if (file_info_length[i] == new FileInfo(lst[j]).Length)
+            //         {
+            //             lst_fin[i] = lst[j];
+            //         }
+            //     }
+            // }
+
+            // foreach (var i in lst_fin)
+            // {
+            //     Console.WriteLine(Path.GetFileName(i));
+            // }
+            
+            //lst.OrderBy(f => new FileInfo(f).Length);
         }
 
         public void File_Output_Hidden_Files_Too()
         {
             string[] lst_info = Directory.GetFiles(_Path);
-            FileAttributes[] arr=new FileAttributes[lst_info.ToList().Count];
+            FileAttributes[] arr=new FileAttributes[lst_info.ToArray().Length];
             int ind = 0;
             foreach (var i in lst_info)
             {
@@ -69,7 +107,7 @@ namespace OOP_Task_1
             }
 
             ind = 0;
-            List<FileAttributes> lst = arr.ToList();
+            FileAttributes[] lst = arr;
             foreach (var i in lst)
             {
                 if((i & FileAttributes.Hidden)==FileAttributes.Hidden)
