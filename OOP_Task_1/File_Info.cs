@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Drawing;
+using System.Net.Mime;
 
 namespace OOP_Task_1
 {
@@ -56,6 +57,23 @@ namespace OOP_Task_1
             }
         }
 
+        public void File_Outpubt_As_Tree()
+        {
+            FileInfo[] file_info_arr = Directory.GetFiles(_Path,"*",SearchOption.AllDirectories).Select(f => new FileInfo(f)).ToArray();
+            foreach (var i in file_info_arr)
+            {
+                Console.WriteLine($"- file : {i.Name}");
+                Console.WriteLine($"   - size: {i.Length} bytes");
+                Console.WriteLine($"   - date created: {i.CreationTime}");
+                Console.WriteLine($"   - last updated: {i.LastWriteTime}");
+                // if (i.Extension == "jpg" || i.Extension == "jpeg" || i.Extension == "png" || i.Extension == "gif")
+                // {
+                //     var img = 
+                //     Console.WriteLine($"    -{}");
+                // }
+            }
+        }
+        
         public void File_Output_By_Size()
         {
             string[] lst = Directory

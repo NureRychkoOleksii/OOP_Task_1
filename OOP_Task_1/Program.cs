@@ -9,6 +9,7 @@ namespace OOP_Task_1
             File_Info file = new File_Info(@"E:\Projects\Test_Rep_1");
             //file.File_Output_By_Size();
             //file.File_Output_By_Extension();
+            file.File_Outpubt_As_Tree();
             file.Enter_File_Name("1, Ричко.doc");
             //file.Folder_Move(@"C:\Users\moonler\Desktop");
             file.Change_Folder(@"C:\Users\moonler\Desktop\мусор");
