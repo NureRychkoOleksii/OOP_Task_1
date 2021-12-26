@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Drawing;
 using System.Net.Mime;
 
-namespace OOP_Task_1
+namespace OOPTask1
 {
     public class File_Info
     {
         public string _Path { get; set; }
 
-        public string File_Name { get; set; }
+        public string FileName { get; set; }
 
         private DirectoryInfo directoryInfo;
 
-        public void Enter_File_Name(string name)
+        public void EnterFileName(string name)
         {
-            File_Name = name;
+            FileName = name;
         }
 
         public File_Info()
@@ -30,7 +28,7 @@ namespace OOP_Task_1
             _Path = path;
         }
         
-        public void File_Output()
+        public void FileOutput()
         {
             string[] arr = Directory.GetFiles(_Path, "*", SearchOption.AllDirectories);
             foreach (var i in arr)
@@ -41,7 +39,7 @@ namespace OOP_Task_1
             //.ForEach(f => Console.WriteLine(Path.GetFileName(f)));
         }
 
-        public void File_Output_By_Name()
+        public void FileOutputByName()
         {
             string[] lst = Directory
                 .GetFiles(_Path, "*", SearchOption.AllDirectories)
@@ -49,7 +47,7 @@ namespace OOP_Task_1
                 .ToArray();
            
 
-            // string[] lst = Directory.GetFiles(_Path, "*", SearchOption.AllDirectories);
+            // string[] lst = Directory.GetFiles(Path, "*", SearchOption.AllDirectories);
             // Array.Sort(lst);
             foreach (var i in lst)
             {
@@ -57,10 +55,10 @@ namespace OOP_Task_1
             }
         }
 
-        public void File_Outpubt_As_Tree()
+        public void FileOutputAsTree()
         {
-            FileInfo[] file_info_arr = Directory.GetFiles(_Path,"*",SearchOption.AllDirectories).Select(f => new FileInfo(f)).ToArray();
-            foreach (var i in file_info_arr)
+            FileInfo[] fileinfoarr = Directory.GetFiles(_Path,"*",SearchOption.AllDirectories).Select(f => new FileInfo(f)).ToArray();
+            foreach (var i in fileinfoarr)
             {
                 Console.WriteLine($"- file : {i.Name}");
                 Console.WriteLine($"   - size: {i.Length} bytes");
@@ -74,7 +72,7 @@ namespace OOP_Task_1
             }
         }
         
-        public void File_Output_By_Size()
+        public void FileOutputBySize()
         {
             string[] lst = Directory
                 .GetFiles(_Path)
@@ -87,25 +85,25 @@ namespace OOP_Task_1
           
             // for (int i = 0; i < lst.Length; i++)
             // {
-            //     file_info_length[i] = new FileInfo(lst[i]).Length;
+            //     fileinfolength[i] = new FileInfo(lst[i]).Length;
             // }
             //
-            // Array.Sort(file_info_length);
+            // Array.Sort(fileinfolength);
             //
-            // string[] lst_fin = new string[lst.Length];
+            // string[] lstfin = new string[lst.Length];
             //
             // for (int i = 0; i < lst.Length; i++)
             // {
             //     for (int j = 0; j < lst.Length; j++)
             //     {
-            //         if (file_info_length[i] == new FileInfo(lst[j]).Length)
+            //         if (fileinfolength[i] == new FileInfo(lst[j]).Length)
             //         {
-            //             lst_fin[i] = lst[j];
+            //             lstfin[i] = lst[j];
             //         }
             //     }
             // }
 
-            // foreach (var i in lst_fin)
+            // foreach (var i in lstfin)
             // {
             //     Console.WriteLine(Path.GetFileName(i));
             // }
@@ -113,12 +111,50 @@ namespace OOP_Task_1
             //lst.OrderBy(f => new FileInfo(f).Length);
         }
 
-        public void File_Output_Hidden_Files_Too()
+        public void FileOutput200Symbols(string fileName)
         {
-            string[] lst_info = Directory.GetFiles(_Path);
-            FileAttributes[] arr=new FileAttributes[lst_info.ToArray().Length];
+            string[] kek = File.ReadAllLines($@"{_Path}\{fileName}");
+            int strLength = 0;
+            string final = "";
+            
+            foreach (var i in kek)
+            {
+                strLength += i.Length;
+            }
+
+            bool t = false;
+
+            for (int i = 0; i < kek.Length; i++)
+            {
+
+                for (int j = 0; j < kek[i].Length; j++)
+                {
+                    if (final.Length == 200)
+                    {
+                        t = true;
+                        break;
+                    }
+
+                    final += kek[i][j];
+                }
+
+                if (t == true)
+                {
+                    break;
+                }
+
+            }
+
+
+            Console.WriteLine(final);
+        }
+
+        public void FileOutputHiddenFilesToo()
+        {
+            string[] lstinfo = Directory.GetFiles(_Path);
+            FileAttributes[] arr=new FileAttributes[lstinfo.ToArray().Length];
             int ind = 0;
-            foreach (var i in lst_info)
+            foreach (var i in lstinfo)
             {
                 arr[ind] = File.GetAttributes(i);
                 ind++;
@@ -131,78 +167,81 @@ namespace OOP_Task_1
                 if((i & FileAttributes.Hidden)==FileAttributes.Hidden)
                 {
                     arr[ind] = RemoveAttribute(i, FileAttributes.Hidden);
-                    File.SetAttributes(lst_info[ind],arr[ind]);
+                    File.SetAttributes(lstinfo[ind],arr[ind]);
                 }
             }
-            File_Output();
+            FileOutput();
         }
         private FileAttributes RemoveAttribute(FileAttributes attributes, FileAttributes attributesToRemove)
         {
             return attributes & ~attributesToRemove;
         }
 
-        public void File_Output_By_Extension()
+        public void FileOutputByExtension()
         {
-            List<string> lst = Directory.GetFiles(_Path).ToList();
+            string[] lst = Directory.GetFiles(_Path);
             lst
-                .OrderBy(f=>Path.GetExtension(f))
-                .ToList()
-                .ForEach(f=>Console.WriteLine(Path.GetFileName(f)));
+                .OrderBy(f => Path.GetExtension(f))
+                .ToArray();
+            foreach (var i in lst)
+            {
+                Console.WriteLine(Path.GetFileName(i));
+            }
         }
         
-        public void Change_Folder(string path)
+        public void ChangeFolder(string path)
         {
             _Path = path;
         }
 
-        public string Current_Path()
+        public string CurrentPath()
         {
             return _Path;
         }
         
-        public void Folder_Move(string path)
+        public void FolderMove(string path)
         {
-            string final_path = $@"{path}\{File_Name}";
-            File.Move($@"{_Path}\{File_Name}",final_path);
+            string finalpath = $@"{path}\{FileName}";
+            File.Move($@"{_Path}\{FileName}",finalpath);
         }
 
-        public void Create_Folder(string folder_name)
+        public void CreateFolder(string foldername)
         {
-            Directory.CreateDirectory(@$"{_Path}\{folder_name}");
+            Directory.CreateDirectory(@$"{_Path}\{foldername}");
         }
 
-        public void Delete_Folder(string folder_name)
+        public void DeleteFolder(string foldername)
         {
-            Directory.Delete($@"{_Path}\{folder_name}",true);
+            Directory.Delete($@"{_Path}\{foldername}",true);
         }
 
-        public void Create_File(string file_name)
+        public void CreateFile(string filename)
         {
-            var file=File.Create($@"{_Path}\{file_name}");
+            var file=File.Create($@"{_Path}\{filename}");
             file.Close();
         }
 
-        public void Delete_File(string file_name)
+        public void DeleteFile(string filename)
         {
-            File.Delete($@"{_Path}\{file_name}");
+            File.Delete($@"{_Path}\{filename}");
         }
 
-        public void Rename_File(string file_name, string new_file_name)
+        public void RenameFile(string filename, string newfilename)
         {
-            string source_file = $@"{_Path}\{file_name}";
-            FileInfo fi = new FileInfo(source_file);
+            string sourcefile = $@"{_Path}\{filename}";
+            FileInfo fi = new FileInfo(sourcefile);
             if (fi.Exists)
             {
-                fi.MoveTo($@"{_Path}\{new_file_name}");
+                fi.MoveTo($@"{_Path}\{newfilename}");
             }
         }
 
-        public void Rename_Folder(string folder_name, string new_folder_name)
+        public void RenameFolder(string foldername, string newfoldername)
         {
-            DirectoryInfo di = new DirectoryInfo($@"{_Path}\{folder_name}");
+            DirectoryInfo di = new DirectoryInfo($@"{_Path}\{foldername}");
             if (di.Exists == true)
             {
-                Directory.Move($@"{_Path}\{folder_name}",$@"{_Path}\{new_folder_name}");
+                Directory.Move($@"{_Path}\{foldername}",$@"{_Path}\{newfoldername}");
             }
         }
         
