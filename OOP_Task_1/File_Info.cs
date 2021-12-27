@@ -78,40 +78,15 @@ namespace OOPTask1
                 .GetFiles(_Path)
                 .OrderBy(f => new FileInfo(f).Length)
                 .ToArray();
+            
             foreach (var i in lst)
             {
                 Console.WriteLine(Path.GetFileName(i));
             }
-          
-            // for (int i = 0; i < lst.Length; i++)
-            // {
-            //     fileinfolength[i] = new FileInfo(lst[i]).Length;
-            // }
-            //
-            // Array.Sort(fileinfolength);
-            //
-            // string[] lstfin = new string[lst.Length];
-            //
-            // for (int i = 0; i < lst.Length; i++)
-            // {
-            //     for (int j = 0; j < lst.Length; j++)
-            //     {
-            //         if (fileinfolength[i] == new FileInfo(lst[j]).Length)
-            //         {
-            //             lstfin[i] = lst[j];
-            //         }
-            //     }
-            // }
-
-            // foreach (var i in lstfin)
-            // {
-            //     Console.WriteLine(Path.GetFileName(i));
-            // }
             
-            //lst.OrderBy(f => new FileInfo(f).Length);
         }
 
-        public void FileOutput200Symbols(string fileName)
+        public string FileOutput200Symbols(string fileName)
         {
             string[] kek = File.ReadAllLines($@"{_Path}\{fileName}");
             int strLength = 0;
@@ -146,7 +121,7 @@ namespace OOPTask1
             }
 
 
-            Console.WriteLine(final);
+            return final;
         }
 
         public void FileOutputHiddenFilesToo()
@@ -177,6 +152,12 @@ namespace OOPTask1
             return attributes & ~attributesToRemove;
         }
 
+        public bool FindSubStr(string subStr, string fileName)
+        {
+            string str = FileOutput200Symbols(fileName);
+            return str.Contains(subStr);
+        }
+        
         public void FileOutputByExtension()
         {
             string[] lst = Directory.GetFiles(_Path);
