@@ -1,20 +1,82 @@
 ﻿using System;
 using System.IO;
+using OOPTask1;
 
 namespace OOP_Task_1
 {
     class Program
     {
         static void Main(string[] args)
-        {
-            File_Info file = new File_Info(@"C:\Users\moonler\Desktop\мусор");
-            //file.File_Output();
-            file.Enter_File_Name("1, Ричко.doc");
-            //file.Folder_Move(@"C:\Users\moonler\Desktop");
-            file.Change_Folder(@"C:\Users\moonler\Desktop\мусор");
-            file.Create_Folder("ВАЛЕРЧИК_ТЕСТ");
-            Console.WriteLine(file.Current_Path());
-            file.Delete_Folder("фывфыв");
+        { 
+            bool ifWorking=true;
+            File_Info fileInfo = new File_Info(@"C:\Users\moonler\Desktop");
+            while (ifWorking)
+            {
+                Console.WriteLine(fileInfo.CurrentPath()+"> ");
+                string[] stringArr = Console.ReadLine().Split(" ");
+                switch (stringArr[0])
+                {
+                    case "cd":
+                        fileInfo.ChangeFolder(stringArr[1]);
+                        break;
+                    
+                    case "dir":
+                        fileInfo.FileOutput();
+                        break;
+                    
+                    case "dir:c":
+                        Console.WriteLine(fileInfo.CurrentPath());
+                        break;
+                    case "dir-f":
+                        fileInfo.FileOutputHiddenFilesToo();
+                        break;
+                    case "dir-t":
+                        fileInfo.FileOutputAsTree();
+                        break;
+                    case "dir-s-n":
+                        fileInfo.FileOutputByName();
+                        break;
+                    case "dir-s-e":
+                        fileInfo.FileOutputByExtension();
+                        break;
+                    case "dir-s-s":
+                        fileInfo.FileOutputBySize();
+                        break;
+                    case "type":
+                        Console.WriteLine(fileInfo.FileOutput200Symbols(stringArr[1]));
+                        break;
+                    case "md":
+                        fileInfo.CreateFolder(stringArr[1]);
+                        break;
+                    case "nul":
+                        fileInfo.CreateFile(stringArr[1]);
+                        break;
+                    case "ren":
+                        fileInfo.RenameFile(stringArr[1], stringArr[2]);
+                        break;
+                    
+                    case "ren-f":
+                        fileInfo.RenameFolder(stringArr[1], stringArr[2]);
+                        break;
+                    
+                    case "del":
+                        fileInfo.DeleteFile(stringArr[1]);
+                        break;
+                    
+                    case "del-f":
+                        fileInfo.DeleteFolder(stringArr[1]);
+                        break;
+                    
+                    case "move":
+                        fileInfo.FolderMove(stringArr[1]);
+                        break;
+                    
+                    case "exit":
+                        ifWorking = false;
+                        break;
+                    
+                }
+            }
         }
     }
 }
