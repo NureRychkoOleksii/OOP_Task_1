@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Drawing;
 
 namespace OOPTask1
 {
@@ -64,11 +65,11 @@ namespace OOPTask1
                 Console.WriteLine($"   - size: {i.Length} bytes");
                 Console.WriteLine($"   - date created: {i.CreationTime}");
                 Console.WriteLine($"   - last updated: {i.LastWriteTime}");
-                // if (i.Extension == "jpg" || i.Extension == "jpeg" || i.Extension == "png" || i.Extension == "gif")
-                // {
-                //     var img = 
-                //     Console.WriteLine($"    -{}");
-                // }
+                if (i.Extension == "jpg" || i.Extension == "jpeg" || i.Extension == "png" || i.Extension == "gif")
+                {
+                    Bitmap bmp = new Bitmap(i.Name);
+                    Console.WriteLine($"    -{bmp.Height}x{bmp.Width}");
+                }
             }
         }
         

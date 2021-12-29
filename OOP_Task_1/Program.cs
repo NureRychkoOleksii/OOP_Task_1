@@ -12,6 +12,7 @@ namespace OOP_Task_1
             File_Info fileInfo = new File_Info(@"C:\Users\moonler\Desktop");
             while (ifWorking)
             {
+                Console.WriteLine(fileInfo.CurrentPath()+"> ");
                 string[] stringArr = Console.ReadLine().Split(" ");
                 switch (stringArr[0])
                 {
