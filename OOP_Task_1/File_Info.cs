@@ -13,12 +13,7 @@ namespace OOPTask1
         public string FileName { get; set; }
 
         private DirectoryInfo directoryInfo;
-
-        public void EnterFileName(string name)
-        {
-            FileName = name;
-        }
-
+        
         public File_Info()
         {
             
@@ -29,20 +24,16 @@ namespace OOPTask1
             _Path = path;
         }
         
-        public void FileOutput()
+        public string[] FileOutput()
         {
-            string[] arr = Directory.GetFiles(_Path, "*", SearchOption.AllDirectories);
-            foreach (var i in arr)
-            {
-                Console.WriteLine(Path.GetFileName(i));
-            }
+            return Directory.GetFiles(_Path, "*", SearchOption.AllDirectories);
             //.ToList();
             //.ForEach(f => Console.WriteLine(Path.GetFileName(f)));
         }
 
-        public void FileOutputByName()
+        public string[] FileOutputByName()
         {
-            string[] lst = Directory
+            return Directory
                 .GetFiles(_Path, "*", SearchOption.AllDirectories)
                 .OrderBy(f => f)
                 .ToArray();
@@ -50,10 +41,10 @@ namespace OOPTask1
 
             // string[] lst = Directory.GetFiles(Path, "*", SearchOption.AllDirectories);
             // Array.Sort(lst);
-            foreach (var i in lst)
-            {
-                Console.WriteLine(Path.GetFileName(i));
-            }
+            // foreach (var i in lst)
+            // {
+            //     Console.WriteLine(Path.GetFileName(i));
+            // }
         }
 
         public void FileOutputAsTree()
@@ -65,25 +56,25 @@ namespace OOPTask1
                 Console.WriteLine($"   - size: {i.Length} bytes");
                 Console.WriteLine($"   - date created: {i.CreationTime}");
                 Console.WriteLine($"   - last updated: {i.LastWriteTime}");
-                if (i.Extension == "jpg" || i.Extension == "jpeg" || i.Extension == "png" || i.Extension == "gif")
-                {
-                    Bitmap bmp = new Bitmap(i.Name);
-                    Console.WriteLine($"    -{bmp.Height}x{bmp.Width}");
-                }
+                // if (i.Extension == ".jpg" || i.Extension == ".jpeg" || i.Extension == ".png" || i.Extension == ".gif")
+                // {
+                //     Bitmap bmp = new Bitmap(i.Name);
+                //     Console.WriteLine($"   - Resolution : {bmp.Height}x{bmp.Width}");
+                // }
             }
         }
         
-        public void FileOutputBySize()
+        public string[] FileOutputBySize()
         {
-            string[] lst = Directory
+            return Directory
                 .GetFiles(_Path)
                 .OrderBy(f => new FileInfo(f).Length)
                 .ToArray();
             
-            foreach (var i in lst)
-            {
-                Console.WriteLine(Path.GetFileName(i));
-            }
+            // foreach (var i in lst)
+            // {
+            //     Console.WriteLine(Path.GetFileName(i));
+            // }
             
         }
 
@@ -125,7 +116,7 @@ namespace OOPTask1
             return final;
         }
 
-        public void FileOutputHiddenFilesToo()
+        public string[] FileOutputHiddenFilesToo()
         {
             string[] lstinfo = Directory.GetFiles(_Path);
             FileAttributes[] arr=new FileAttributes[lstinfo.ToArray().Length];
@@ -146,7 +137,7 @@ namespace OOPTask1
                     File.SetAttributes(lstinfo[ind],arr[ind]);
                 }
             }
-            FileOutput();
+            return FileOutput();
         }
         private FileAttributes RemoveAttribute(FileAttributes attributes, FileAttributes attributesToRemove)
         {
@@ -159,16 +150,16 @@ namespace OOPTask1
             return str.Contains(subStr);
         }
         
-        public void FileOutputByExtension()
+        public string[] FileOutputByExtension()
         {
             string[] lst = Directory.GetFiles(_Path);
-            lst
+            return lst
                 .OrderBy(f => Path.GetExtension(f))
                 .ToArray();
-            foreach (var i in lst)
-            {
-                Console.WriteLine(Path.GetFileName(i));
-            }
+            // foreach (var i in lst)
+            // {
+            //     Console.WriteLine(Path.GetFileName(i));
+            // }
         }
         
         public void ChangeFolder(string path)
