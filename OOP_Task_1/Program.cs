@@ -96,7 +96,7 @@ namespace OOP_Task_1
                         break;
                     
                     case "move":
-                        fileInfo.FolderMove(stringArr[1]);
+                        fileInfo.FolderMove(stringArr[1],stringArr[2]);
                         break;
                     
                     case "exit":
