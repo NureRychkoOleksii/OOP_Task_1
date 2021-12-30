@@ -12,6 +12,8 @@ namespace OOPTask1
 
         public string FileName { get; set; }
 
+        private DirectoryInfo directoryInfo;
+        
         public File_Info()
         {
             
@@ -170,10 +172,10 @@ namespace OOPTask1
             return _Path;
         }
         
-        public void FolderMove(string path,string filename)
+        public void FolderMove(string path)
         {
-            string finalpath = $@"{path}\{filename}";
-            File.Move($@"{_Path}\{filename}",finalpath);
+            string finalpath = $@"{path}\{FileName}";
+            File.Move($@"{_Path}\{FileName}",finalpath);
         }
 
         public void CreateFolder(string foldername)
